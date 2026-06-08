@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { ClientOverviewGate } from "@/components/client-overview-gate";
 import { ProcessDashboardView } from "@/components/process-dashboard";
 import { AgfmFastClosing } from "@/components/agfm-fast-closing";
 import { EdisonDocIntelligence } from "@/components/edison-doc-intelligence";
@@ -48,11 +49,11 @@ export default async function ProcessPage({
   }
 
   return (
-    <>
+    <ClientOverviewGate clientId={client.id}>
       <Link href={`/${client.id}`} className="text-sm text-muted-foreground hover:underline">
         ← Panoramica {client.name}
       </Link>
       {interactive ?? <ProcessDashboardView dashboard={dashboard} accent={client.accent} clientId={client.id} />}
-    </>
+    </ClientOverviewGate>
   );
 }

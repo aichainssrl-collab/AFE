@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ExpertChatProvider } from "@/components/expert-chat-provider";
+import { AuthProvider } from "@/components/auth-context";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -31,7 +32,7 @@ export default function RootLayout({
       className={`${jakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <ExpertChatProvider />
       </body>
     </html>

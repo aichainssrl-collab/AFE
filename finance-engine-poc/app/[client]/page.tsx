@@ -4,6 +4,7 @@ import { KpiCardV2 } from "@/components/kpi-card-v2";
 import { RecommendedDemoCta } from "@/components/recommended-demo-cta";
 import { OverviewAnalytics } from "@/components/overview-analytics";
 import { Glossario } from "@/components/glossario";
+import { ClientOverviewGate } from "@/components/client-overview-gate";
 import { getClient, CLIENT_FLAGSHIP, PROCESS_NAV_META } from "@/lib/data";
 
 const KPI_ICONS = ["layers", "trend", "check"] as const;
@@ -21,7 +22,7 @@ export default async function ClientOverviewPage({
   const flagshipLabel = PROCESS_NAV_META[flagshipId]?.navLabel ?? "Demo";
 
   return (
-    <>
+    <ClientOverviewGate clientId={client.id}>
       <OverviewHeroCard client={client} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -57,6 +58,6 @@ export default async function ClientOverviewPage({
       </div>
 
       <Glossario />
-    </>
+    </ClientOverviewGate>
   );
 }

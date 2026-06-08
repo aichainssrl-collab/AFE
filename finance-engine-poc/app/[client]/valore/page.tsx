@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ValueSummary } from "@/components/value-summary";
+import { ClientOverviewGate } from "@/components/client-overview-gate";
 import { getClient } from "@/lib/data";
 
 export default async function ClientValuePage({
@@ -13,7 +14,7 @@ export default async function ClientValuePage({
   if (!client) notFound();
 
   return (
-    <>
+    <ClientOverviewGate clientId={client.id}>
       <Link href={`/${client.id}`} className="text-sm text-muted-foreground hover:underline">
         ← Panoramica {client.name}
       </Link>
@@ -29,6 +30,6 @@ export default async function ClientValuePage({
       </div>
 
       <ValueSummary client={client} />
-    </>
+    </ClientOverviewGate>
   );
 }

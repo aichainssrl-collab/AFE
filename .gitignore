@@ -41,3 +41,6 @@ yarn-error.log*
 # Uploads locali (asset dell'utente)
 demo/uploads/
 
+# Documenti di analisi locale (non versionati)
+docs/analisi.md
+

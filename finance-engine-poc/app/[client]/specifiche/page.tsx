@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SpecForm } from "@/components/spec-form";
+import { ClientOverviewGate } from "@/components/client-overview-gate";
 import { getClient } from "@/lib/data";
 
 export default async function ClientSpecPage({
@@ -20,7 +21,7 @@ export default async function ClientSpecPage({
   };
 
   return (
-    <>
+    <ClientOverviewGate clientId={client.id}>
       <Link href={`/${client.id}`} className="text-sm text-muted-foreground hover:underline">
         ← Panoramica {client.name}
       </Link>
@@ -37,6 +38,6 @@ export default async function ClientSpecPage({
       </div>
 
       <SpecForm clientId={client.id} prospectName={client.name} initialValues={initialValues} />
-    </>
+    </ClientOverviewGate>
   );
 }

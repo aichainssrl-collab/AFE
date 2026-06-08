@@ -1,0 +1,394 @@
+{
+  "version": "1.0",
+  "title": "Requisiti raccolti per cliente — AIchain Finance Engine",
+  "description": "Raccolta 'server-side' (file statico versionato) dei requisiti di tutti i clienti del POC. Sorgente di verità per onboarder / account team anche quando i dati del form (localStorage) non sono disponibili. I dati sono coerenti con lib/data.ts e con le analisi in /docs.",
+  "exportedAt": "2026-06-08",
+  "schemaRef": "lib/spec-questions.json",
+  "totals": {
+    "clients": 6,
+    "withCollectedSpecs": 6,
+    "customSections": 6,
+    "sharedSections": 6
+  },
+  "sections": [
+    "anagrafica",
+    "sistemi",
+    "processi",
+    "dati",
+    "compliance",
+    "progetto"
+  ],
+  "clients": [
+    {
+      "id": "agfm",
+      "name": "AGFM",
+      "sector": "Consulenza & Tax Advisory",
+      "horizonMonths": "6-12",
+      "anagrafica": {
+        "ragione_sociale": "AGFM S.r.l. — Studio di Consulenza Fiscale & Tax Advisory",
+        "settore": "Consulenza & Tax Advisory",
+        "referente": "Da definire in fase di assessment",
+        "email_referente": "team@aichain-solutions.com",
+        "dipendenti_afc": 12
+      },
+      "sistemi": {
+        "erp": "Altro / nessuno",
+        "erp_note": "Attività basata principalmente su Excel + TeamSystem per la contabilità di pochi clienti interni",
+        "crm": "Nessuno formalizzato",
+        "altri_gestionali": "Excel gestionali per cliente dello studio, software di studio (TeamSystem / datev) solo per poche pratiche interne",
+        "api_disponibili": "Da verificare",
+        "vincoli_integrazione": "Il team non ha competenze IT: tutto deve essere no-code e gestito in cloud."
+      },
+      "processi": {
+        "processi_target": [
+          "Chiusura mensile / Fast Closing",
+          "Forecasting / Budgeting predittivo",
+          "Controllo di gestione & reporting"
+        ],
+        "fatture_mese": 3280,
+        "documenti_mese": 12400,
+        "tempo_chiusura": 5,
+        "barriera": "Zero competenze tecniche interne"
+      },
+      "dati": {
+        "fonti_dati": 4,
+        "volume_record": "≈ 50.000 (clienti dello studio)",
+        "qualita_dati": "Media",
+        "frequenza_aggiornamento": "Settimanale"
+      },
+      "compliance": {
+        "normative": ["GDPR", "Conservazione a norma (10 anni)"],
+        "deployment": "Cloud gestito (SaaS)",
+        "sso": "Da valutare",
+        "residenza_dati": "UE"
+      },
+      "progetto": {
+        "obiettivi": "Fast Closing < 2gg, Forecasting Accuracy > 94%, Riduzione costi AFC del 30% entro 12 mesi",
+        "tempistiche": "3-6 mesi",
+        "budget": "100k-250k €",
+        "note": "Posizionamento: AI come co-pilot del professionista, zero competenze tecniche richieste."
+      },
+      "custom": {
+        "agfm_gestione": "Team AFC senza supporto IT",
+        "agfm_competenze": "Nessuna (solo utenti business)",
+        "agfm_formazione": 3,
+        "agfm_clienti_studio": "Chiusura mensile per clienti retail, fatturazione per studi medici, controllo di gestione per PMI manifatturiere",
+        "agfm_cloud": "Tutto in cloud gestito (no infrastruttura interna)"
+      }
+    },
+    {
+      "id": "edison",
+      "name": "Edison",
+      "sector": "Energy & Utilities",
+      "horizonMonths": "6-12",
+      "anagrafica": {
+        "ragione_sociale": "Edison S.p.A.",
+        "settore": "Energy & Utilities",
+        "referente": "Direzione AFC Corporate",
+        "email_referente": "afc-project@edison.it",
+        "dipendenti_afc": 85
+      },
+      "sistemi": {
+        "erp": "SAP",
+        "erp_note": "SAP S/4HANA on-premise, già integrato con modulo FI/CO",
+        "crm": "Salesforce",
+        "altri_gestionali": "Modulo HR SAP SuccessFactors, portale fatturazione elettronica Aruba, gestionale magazzino SAP EWM",
+        "api_disponibili": "Sì, API REST",
+        "vincoli_integrazione": "Nessuna modifica strutturale all'ERP: solo connettore in lettura/scrittura verso moduli FI/CO."
+      },
+      "processi": {
+        "processi_target": [
+          "Document Intelligence (estrazione)",
+          "Anomaly & Fraud Detection",
+          "Data Cleansing & unificazione"
+        ],
+        "fatture_mese": 18500,
+        "documenti_mese": 12400,
+        "tempo_chiusura": 7,
+        "barriera": "Integrazione con ERP esistente"
+      },
+      "dati": {
+        "fonti_dati": 6,
+        "volume_record": "184.000 (documenti archiviati)",
+        "qualita_dati": "Alta",
+        "frequenza_aggiornamento": "Tempo reale"
+      },
+      "compliance": {
+        "normative": ["GDPR", "eIDAS 2.0", "Conservazione a norma (10 anni)", "ISO 27001"],
+        "deployment": "Private cloud EU",
+        "sso": "Sì (SAML/OIDC)",
+        "residenza_dati": "Dati solo in UE (vincolo regolatorio Energy)"
+      },
+      "progetto": {
+        "obiettivi": "Ridurre i costi AFC del 42%, frodi intercettate > €200k/anno, tempo estrazione doc < 5s",
+        "tempistiche": "3-6 mesi",
+        "budget": "> 250k €",
+        "note": "Vincolo chiave: zero modifiche strutturali all'ERP, solo connettore."
+      },
+      "custom": {
+        "edison_erp_versione": "SAP S/4HANA 2023 (on-premise)",
+        "edison_connettore": "Connettore API (no modifiche ERP)",
+        "edison_tipi_doc": [
+          "Fatture passive",
+          "Fatture attive",
+          "Note di credito",
+          "DDT / bolle",
+          "Contratti",
+          "Ordini di acquisto"
+        ],
+        "edison_volumi_doc": 12400,
+        "edison_anomalie": [
+          "Importi fuori scala",
+          "Duplicati",
+          "IBAN non corrispondente",
+          "Fornitore non in anagrafica",
+          "Scadenze anomale"
+        ],
+        "edison_soglia": 80
+      }
+    },
+    {
+      "id": "systra",
+      "name": "Systra",
+      "sector": "Infrastrutture & Mobilità",
+      "horizonMonths": "6-12",
+      "anagrafica": {
+        "ragione_sociale": "Systra Italia S.p.A.",
+        "settore": "Infrastrutture & Mobilità",
+        "referente": "CFO Italia",
+        "email_referente": "cfo-it@systra.com",
+        "dipendenti_afc": 24
+      },
+      "sistemi": {
+        "erp": "Oracle",
+        "erp_note": "Oracle E-Business Suite R12, modulo Project Accounting customizzato per commesse",
+        "crm": "Microsoft Dynamics",
+        "altri_gestionali": "Excel di progetto, software di pianificazione commesse (Primavera P6), portale gare e appalti",
+        "api_disponibili": "Sì, ma solo export file",
+        "vincoli_integrazione": "L'ERP customizzato non può essere toccato: i dati AFC devono essere esposti via export schedulato."
+      },
+      "processi": {
+        "processi_target": [
+          "Forecasting / Budgeting predittivo",
+          "Chiusura mensile / Fast Closing",
+          "Controllo di gestione & reporting"
+        ],
+        "fatture_mese": 3280,
+        "documenti_mese": 6800,
+        "tempo_chiusura": 4,
+        "barriera": "Incertezza sul ROI"
+      },
+      "dati": {
+        "fonti_dati": 5,
+        "volume_record": "≈ 95.000 (commesse + fornitori)",
+        "qualita_dati": "Alta",
+        "frequenza_aggiornamento": "Settimanale"
+      },
+      "compliance": {
+        "normative": ["GDPR", "Conservazione a norma (10 anni)"],
+        "deployment": "Cloud gestito (SaaS)",
+        "sso": "Sì (SAML/OIDC)",
+        "residenza_dati": "UE"
+      },
+      "progetto": {
+        "obiettivi": "ROI a 12 mesi > 300%, Forecasting Accuracy > 96%, Payback period < 4 mesi",
+        "tempistiche": "3-6 mesi",
+        "budget": "100k-250k €",
+        "note": "Decision driver: capacità di dimostrare ROI e accuratezza predittiva fin dal primo trimestre."
+      },
+      "custom": {
+        "systra_baseline_costi": "€ 480.000/anno (processi AFC Italia)",
+        "systra_roi_target": "> 300%",
+        "systra_payback": "3-6 mesi",
+        "systra_scenari": "Variazione costo materie prime ±25%, slittamento commesse, cambio EUR/USD su sub-fornitori esteri",
+        "systra_accuratezza": "> 95%"
+      }
+    },
+    {
+      "id": "basedigitale",
+      "name": "Base Digitale",
+      "sector": "ICT & Trasformazione Digitale",
+      "horizonMonths": "6-12",
+      "anagrafica": {
+        "ragione_sociale": "Base Digitale S.r.l.",
+        "settore": "ICT & Trasformazione Digitale",
+        "referente": "Direzione Commerciale",
+        "email_referente": "partnership@basedigitale.it",
+        "dipendenti_afc": 6
+      },
+      "sistemi": {
+        "erp": "Microsoft Dynamics",
+        "erp_note": "Dynamics 365 Business Central, in cloud",
+        "crm": "HubSpot",
+        "altri_gestionali": "Piattaforma interna di project management (custom), portale ticketing",
+        "api_disponibili": "Sì, API REST",
+        "vincoli_integrazione": "Modello a canale: la piattaforma deve poter essere offerta white-label verso i clienti finali."
+      },
+      "processi": {
+        "processi_target": [
+          "Forecasting / Budgeting predittivo",
+          "Chiusura mensile / Fast Closing",
+          "Data Cleansing & unificazione"
+        ],
+        "fatture_mese": 1800,
+        "documenti_mese": 4200,
+        "tempo_chiusura": 3,
+        "barriera": "Incertezza sul ROI"
+      },
+      "dati": {
+        "fonti_dati": 4,
+        "volume_record": "≈ 25.000 (propri + clienti pilota)",
+        "qualita_dati": "Alta",
+        "frequenza_aggiornamento": "Giornaliera"
+      },
+      "compliance": {
+        "normative": ["GDPR"],
+        "deployment": "Cloud gestito (SaaS)",
+        "sso": "Da valutare",
+        "residenza_dati": "UE"
+      },
+      "progetto": {
+        "obiettivi": "Forecasting Accuracy > 96% (per credibilità verso clienti), ROI a 12 mesi > 280%, 6 clienti pilota in Q1",
+        "tempistiche": "1-3 mesi",
+        "budget": "50k-100k €",
+        "note": "Posizionamento canale: revenue share 15-25% sui clienti finali, white-label disponibile."
+      },
+      "custom": {
+        "bd_clienti_finali": 120,
+        "bd_modello": "Revenue share",
+        "bd_whitelabel": "Sì",
+        "bd_accuratezza": "> 96%",
+        "bd_pilota": 6
+      }
+    },
+    {
+      "id": "medicair",
+      "name": "MedicAir",
+      "sector": "Healthcare & Assistenza Domiciliare",
+      "horizonMonths": "3-6",
+      "anagrafica": {
+        "ragione_sociale": "MedicAir S.p.A.",
+        "settore": "Healthcare & Assistenza Domiciliare",
+        "referente": "CFO & Direzione IT",
+        "email_referente": "afc-it@medicair.it",
+        "dipendenti_afc": 18
+      },
+      "sistemi": {
+        "erp": "TeamSystem",
+        "erp_note": "TeamSystem ERP con modulo sanità, più CRM Dispositivi Medici custom",
+        "crm": "Salesforce Health Cloud",
+        "altri_gestionali": "Excel per contabilità logistica, gestionale magazzino farmaci (proprietario)",
+        "api_disponibili": "Da verificare",
+        "vincoli_integrazione": "4 fonti dati frammentate: serve Fase 1 di data cleansing prima di qualsiasi forecasting."
+      },
+      "processi": {
+        "processi_target": [
+          "Data Cleansing & unificazione",
+          "Forecasting / Budgeting predittivo",
+          "Controllo di gestione & reporting"
+        ],
+        "fatture_mese": 9400,
+        "documenti_mese": 28000,
+        "tempo_chiusura": 8,
+        "barriera": "Dati frammentati su più fonti"
+      },
+      "dati": {
+        "fonti_dati": 4,
+        "volume_record": "≈ 50.000 (record sanitari + contabili)",
+        "qualita_dati": "Bassa (duplicati / dati mancanti)",
+        "frequenza_aggiornamento": "Giornaliera"
+      },
+      "compliance": {
+        "normative": ["GDPR", "Conservazione a norma (10 anni)", "Audit trail blockchain"],
+        "deployment": "Private cloud EU",
+        "sso": "Sì (SAML/OIDC)",
+        "residenza_dati": "Dati solo in UE (vincolo sanitario)"
+      },
+      "progetto": {
+        "obiettivi": "Fase 1: unificare 4 fonti dati con qualità > 95%. Fase 2: forecasting su logistica dispositivi medici.",
+        "tempistiche": "3-6 mesi",
+        "budget": "100k-250k €",
+        "note": "Approccio phased: prima data cleansing, poi forecasting."
+      },
+      "custom": {
+        "ma_fonti": [
+          "ERP Assistenza Domiciliare",
+          "CRM Dispositivi Medici",
+          "Excel Contabilità Logistica",
+          "Gestionale Magazzino Farmaci"
+        ],
+        "ma_record": "50.000",
+        "ma_qualita": [
+          "Duplicati",
+          "Record malformati",
+          "Dati mancanti",
+          "Anagrafiche non allineate"
+        ],
+        "ma_priorita": "Fase 1 + Fase 2 (forecasting) insieme",
+        "ma_owner_dati": "ERP → IT interno, Excel → ufficio contabilità, CRM Dispositivi → product, Magazzino Farmaci → supply chain"
+      }
+    },
+    {
+      "id": "capitani-picone",
+      "name": "Studio Capitani Picone",
+      "sector": "Consulenza & Advisory professionale",
+      "horizonMonths": "6-12",
+      "anagrafica": {
+        "ragione_sociale": "Studio Capitani Picone",
+        "settore": "Consulenza & Advisory professionale",
+        "referente": "Socio responsabile AFC",
+        "email_referente": "Da definire in fase di assessment",
+        "dipendenti_afc": 8
+      },
+      "sistemi": {
+        "erp": "Altro / nessuno",
+        "erp_note": "Studio professionale storico (~50 anni): software di studio + Excel per gestione clienti",
+        "crm": "Nessuno",
+        "altri_gestionali": "Excel per controllo di gestione clienti, software di studio (TeamSystem/Datev) per contabilità interna",
+        "api_disponibili": "Da verificare",
+        "vincoli_integrazione": "Nessuna competenza tecnica interna: la piattaforma deve essere gestita/managed, con onboarding guidato."
+      },
+      "processi": {
+        "processi_target": [
+          "Chiusura mensile / Fast Closing",
+          "Forecasting / Budgeting predittivo",
+          "Anomaly & Fraud Detection"
+        ],
+        "fatture_mese": 1200,
+        "documenti_mese": 3800,
+        "tempo_chiusura": 6,
+        "barriera": "Zero competenze tecniche interne"
+      },
+      "dati": {
+        "fonti_dati": 3,
+        "volume_record": "≈ 18.000 (pratiche clienti dello studio)",
+        "qualita_dati": "Media",
+        "frequenza_aggiornamento": "Mensile"
+      },
+      "compliance": {
+        "normative": ["GDPR", "Conservazione a norma (10 anni)"],
+        "deployment": "Cloud gestito (SaaS)",
+        "sso": "Da valutare",
+        "residenza_dati": "UE"
+      },
+      "progetto": {
+        "obiettivi": "Fast Closing < 2.1gg, Forecasting Accuracy > 95%, riduzione costi AFC del 30-40%, modello replicabile sui clienti dello studio",
+        "tempistiche": "3-6 mesi",
+        "budget": "50k-100k €",
+        "note": "Posizionamento: AI come co-pilot del professionista; il modello deve poter essere replicato sui clienti dello studio (effetto moltiplicatore)."
+      },
+      "custom": {
+        "cp_gestione": "Entrambi",
+        "cp_competenze": "Nessuna (solo professionisti)",
+        "cp_clienti_studio": 40,
+        "cp_processi": [
+          "Fast Closing",
+          "Forecasting / Budgeting",
+          "Anomaly Detection"
+        ],
+        "cp_pilota": 3,
+        "cp_formazione": 2
+      }
+    }
+  ]
+}

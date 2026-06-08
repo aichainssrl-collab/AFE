@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
+import { ClientOverviewGate } from "@/components/client-overview-gate";
 import { getClient } from "@/lib/data";
 
 export default async function ClientArchitecturePage({
@@ -13,7 +14,7 @@ export default async function ClientArchitecturePage({
   if (!client) notFound();
 
   return (
-    <>
+    <ClientOverviewGate clientId={client.id}>
       <Link href={`/${client.id}`} className="text-sm text-muted-foreground hover:underline">
         ← Panoramica {client.name}
       </Link>
@@ -30,6 +31,6 @@ export default async function ClientArchitecturePage({
       </div>
 
       <ArchitectureDiagram client={client} />
-    </>
+    </ClientOverviewGate>
   );
 }

@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CLIENTS } from "@/lib/data";
+import { ClientGrid } from "@/components/client-grid";
+import { UserSwitcher } from "@/components/user-switcher";
+import { CollectedRequirementsCard } from "@/components/collected-requirements-card";
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
               esplorare panoramica, KPI e dashboard di processo costruiti sul suo caso specifico.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Link
               href="/dashboard"
               className="rounded-[11px] border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary"
@@ -24,50 +25,27 @@ export default function Home() {
               Dashboard prospect →
             </Link>
             <Link
+              href="/settings"
+              className="rounded-[11px] border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary"
+            >
+              Settings →
+            </Link>
+            <Link
               href="/specifiche"
               className="rounded-[11px] border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary"
             >
               Specifiche di sviluppo →
             </Link>
+            <UserSwitcher />
           </div>
         </div>
       </header>
 
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10 sm:px-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-          {CLIENTS.map((c) => (
-            <Link key={c.id} href={`/${c.id}`} className="group">
-              <Card className="relative h-full overflow-hidden transition-all duration-150 group-hover:-translate-y-1 group-hover:shadow-lg">
-                <span
-                  className="pointer-events-none absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-150 group-hover:scale-x-100"
-                  style={{ backgroundColor: c.accent }}
-                  aria-hidden
-                />
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle>{c.name}</CardTitle>
-                    <span
-                      className="h-3 w-3 rounded-full"
-                      style={{ backgroundColor: c.accent }}
-                      aria-hidden
-                    />
-                  </div>
-                  <CardDescription>{c.sector}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-sm text-muted-foreground">{c.pitch}</p>
-                  <Badge
-                    variant="secondary"
-                    className="text-xs"
-                    style={{ backgroundColor: c.accentSoft, color: c.accent }}
-                  >
-                    Barriera: {c.barrierTag}
-                  </Badge>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+        <div className="mb-8">
+          <CollectedRequirementsCard />
         </div>
+        <ClientGrid />
       </main>
     </div>
   );
