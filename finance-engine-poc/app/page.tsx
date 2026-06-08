@@ -16,12 +16,20 @@ export default function Home() {
               esplorare panoramica, KPI e dashboard di processo costruiti sul suo caso specifico.
             </p>
           </div>
-          <Link
-            href="/specifiche"
-            className="rounded-[11px] border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary"
-          >
-            Specifiche di sviluppo →
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/dashboard"
+              className="rounded-[11px] border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary"
+            >
+              Dashboard prospect →
+            </Link>
+            <Link
+              href="/specifiche"
+              className="rounded-[11px] border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary"
+            >
+              Specifiche di sviluppo →
+            </Link>
+          </div>
         </div>
       </header>
 
