@@ -1,0 +1,153 @@
+{
+  "version": "1.0",
+  "title": "Specifiche di sviluppo — AIchain Finance Engine",
+  "description": "Questionario per raccogliere i requisiti necessari allo sviluppo dell'implementazione presso il cliente.",
+  "sections": [
+    {
+      "id": "anagrafica",
+      "title": "Anagrafica & contesto",
+      "description": "Informazioni generali sull'azienda e sul referente di progetto.",
+      "questions": [
+        { "id": "ragione_sociale", "label": "Ragione sociale", "type": "text", "required": true, "placeholder": "Es. MedicAir S.p.A." },
+        { "id": "settore", "label": "Settore di attività", "type": "text", "placeholder": "Es. Healthcare & Assistenza Domiciliare" },
+        { "id": "referente", "label": "Referente di progetto", "type": "text", "placeholder": "Nome e ruolo" },
+        { "id": "email_referente", "label": "Email referente", "type": "email", "placeholder": "nome@azienda.it" },
+        { "id": "dipendenti_afc", "label": "Persone nell'area AFC (Amministrazione, Finanza, Controllo)", "type": "number", "placeholder": "Es. 8" }
+      ]
+    },
+    {
+      "id": "sistemi",
+      "title": "Sistemi & integrazioni",
+      "description": "Stack applicativo attuale e punti di integrazione.",
+      "questions": [
+        { "id": "erp", "label": "ERP attualmente in uso", "type": "select", "options": ["SAP", "Oracle", "Microsoft Dynamics", "Zucchetti", "TeamSystem", "Altro / nessuno"], "required": true },
+        { "id": "erp_note", "label": "Versione / dettagli ERP", "type": "text", "placeholder": "Es. SAP S/4HANA on-premise" },
+        { "id": "crm", "label": "CRM in uso", "type": "text", "placeholder": "Es. Salesforce, HubSpot, nessuno" },
+        { "id": "altri_gestionali", "label": "Altri gestionali / fonti dati (magazzino, fatturazione, Excel…)", "type": "textarea", "placeholder": "Elenca i sistemi e i formati dei dati" },
+        { "id": "api_disponibili", "label": "Sono disponibili API / connettori sull'ERP?", "type": "radio", "options": ["Sì, API REST", "Sì, ma solo export file", "No / da verificare"] },
+        { "id": "vincoli_integrazione", "label": "Vincoli di integrazione noti (no modifiche all'ERP, finestre di manutenzione…)", "type": "textarea" }
+      ]
+    },
+    {
+      "id": "processi",
+      "title": "Processi AFC & volumi",
+      "description": "Quali processi automatizzare e con quali volumi.",
+      "questions": [
+        { "id": "processi_target", "label": "Processi da automatizzare", "type": "checkbox", "options": ["Chiusura mensile / Fast Closing", "Fatturazione & contabilità", "Document Intelligence (estrazione)", "Anomaly & Fraud Detection", "Forecasting / Budgeting predittivo", "Data Cleansing & unificazione", "Controllo di gestione & reporting"] },
+        { "id": "fatture_mese", "label": "Volume fatture / mese (attive + passive)", "type": "number", "placeholder": "Es. 3280" },
+        { "id": "documenti_mese", "label": "Volume documenti da elaborare / mese", "type": "number", "placeholder": "Es. 12400" },
+        { "id": "tempo_chiusura", "label": "Tempo attuale di chiusura mensile (giorni)", "type": "number", "placeholder": "Es. 5" },
+        { "id": "barriera", "label": "Barriera principale all'adozione", "type": "select", "options": ["Zero competenze tecniche interne", "Integrazione con ERP esistente", "Incertezza sul ROI", "Dati frammentati su più fonti", "Compliance / sicurezza", "Altro"] }
+      ]
+    },
+    {
+      "id": "dati",
+      "title": "Dati",
+      "description": "Caratteristiche e qualità dei dati da elaborare.",
+      "questions": [
+        { "id": "fonti_dati", "label": "Numero di fonti dati da integrare", "type": "number", "placeholder": "Es. 4" },
+        { "id": "volume_record", "label": "Volume totale stimato dei record", "type": "text", "placeholder": "Es. 50.000" },
+        { "id": "qualita_dati", "label": "Qualità percepita dei dati attuali", "type": "radio", "options": ["Alta", "Media", "Bassa (duplicati / dati mancanti)"] },
+        { "id": "frequenza_aggiornamento", "label": "Frequenza di aggiornamento richiesta", "type": "select", "options": ["Tempo reale", "Giornaliera", "Settimanale", "Mensile"] }
+      ]
+    },
+    {
+      "id": "compliance",
+      "title": "Compliance & sicurezza",
+      "description": "Requisiti normativi e di sicurezza obbligatori.",
+      "questions": [
+        { "id": "normative", "label": "Normative applicabili", "type": "checkbox", "options": ["GDPR", "eIDAS 2.0", "Conservazione a norma (10 anni)", "Audit trail blockchain", "ISO 27001", "Altro"] },
+        { "id": "deployment", "label": "Modello di deployment richiesto", "type": "radio", "options": ["On-premise", "Private cloud EU", "Cloud gestito (SaaS)"], "required": true },
+        { "id": "sso", "label": "È richiesto SSO / integrazione identity provider?", "type": "radio", "options": ["Sì (SAML/OIDC)", "No", "Da valutare"] },
+        { "id": "residenza_dati", "label": "Vincoli sulla residenza dei dati", "type": "text", "placeholder": "Es. Dati solo in UE" }
+      ]
+    },
+    {
+      "id": "progetto",
+      "title": "Obiettivi, tempistiche & budget",
+      "description": "Aspettative di risultato e vincoli di progetto.",
+      "questions": [
+        { "id": "obiettivi", "label": "Obiettivi prioritari (KPI target)", "type": "textarea", "placeholder": "Es. ridurre del 70% il tempo di chiusura, forecasting accuracy > 95%" },
+        { "id": "tempistiche", "label": "Tempistiche desiderate per il go-live", "type": "select", "options": ["< 1 mese", "1-3 mesi", "3-6 mesi", "> 6 mesi"] },
+        { "id": "budget", "label": "Budget indicativo", "type": "select", "options": ["< 50k €", "50k-100k €", "100k-250k €", "> 250k €", "Da definire"] },
+        { "id": "note", "label": "Note aggiuntive", "type": "textarea", "placeholder": "Qualsiasi altra informazione utile allo sviluppo" }
+      ]
+    }
+  ],
+  "prospectSections": {
+    "agfm": {
+      "id": "agfm_custom",
+      "title": "Onboarding & autonomia — AGFM",
+      "description": "Sezione dedicata: la barriera principale è l'assenza di competenze tecniche interne.",
+      "questions": [
+        { "id": "agfm_gestione", "label": "Chi gestirà la piattaforma internamente?", "type": "select", "options": ["Team AFC senza supporto IT", "Team AFC con IT a supporto", "Consulente esterno", "Da definire"] },
+        { "id": "agfm_competenze", "label": "Livello di competenze tecniche del team", "type": "radio", "options": ["Nessuna (solo utenti business)", "Base", "Intermedio"] },
+        { "id": "agfm_formazione", "label": "Giornate di formazione/onboarding desiderate", "type": "number", "placeholder": "Es. 3" },
+        { "id": "agfm_clienti_studio", "label": "Processi dei clienti dello studio da replicare con il modello no-code", "type": "textarea", "placeholder": "Es. chiusura mensile per clienti retail, fatturazione per studi medici…" },
+        { "id": "agfm_cloud", "label": "Preferenza gestione", "type": "radio", "options": ["Tutto in cloud gestito (no infrastruttura interna)", "Ibrido", "On-premise"] }
+      ]
+    },
+    "edison": {
+      "id": "edison_custom",
+      "title": "Integrazione ERP & Anomaly Detection — Edison",
+      "description": "Sezione dedicata: grandi volumi documentali e integrazione con l'ERP esistente senza modifiche strutturali.",
+      "questions": [
+        { "id": "edison_erp_versione", "label": "ERP e versione esatta da integrare", "type": "text", "placeholder": "Es. SAP S/4HANA 2023" },
+        { "id": "edison_connettore", "label": "Modalità di integrazione preferita", "type": "radio", "options": ["Connettore API (no modifiche ERP)", "Middleware / API Gateway", "Export/import file schedulato"] },
+        { "id": "edison_tipi_doc", "label": "Tipologie documentali da elaborare", "type": "checkbox", "options": ["Fatture passive", "Fatture attive", "Note di credito", "DDT / bolle", "Contratti", "Ordini di acquisto"] },
+        { "id": "edison_volumi_doc", "label": "Volume documenti / mese da classificare", "type": "number", "placeholder": "Es. 12400" },
+        { "id": "edison_anomalie", "label": "Regole di anomalia / frode prioritarie", "type": "checkbox", "options": ["Importi fuori scala", "Duplicati", "IBAN non corrispondente", "Fornitore non in anagrafica", "Scadenze anomale", "Sequenze numeriche irregolari"] },
+        { "id": "edison_soglia", "label": "Soglia di rischio per blocco automatico (0-100)", "type": "number", "placeholder": "Es. 80" }
+      ]
+    },
+    "systra": {
+      "id": "systra_custom",
+      "title": "Business case & ROI — Systra",
+      "description": "Sezione dedicata: necessità di dimostrare valore finanziario immediato e accuratezza predittiva.",
+      "questions": [
+        { "id": "systra_baseline_costi", "label": "Costo annuo attuale dei processi AFC (baseline)", "type": "text", "placeholder": "Es. € 480.000" },
+        { "id": "systra_roi_target", "label": "ROI atteso a 12 mesi", "type": "text", "placeholder": "Es. 300%" },
+        { "id": "systra_payback", "label": "Payback period massimo accettabile", "type": "select", "options": ["< 3 mesi", "3-6 mesi", "6-12 mesi", "> 12 mesi"] },
+        { "id": "systra_scenari", "label": "Scenari forecast da simulare (What-If)", "type": "textarea", "placeholder": "Es. variazione costo materie prime ±25%, slittamento commesse…" },
+        { "id": "systra_accuratezza", "label": "Accuratezza minima del forecasting richiesta", "type": "text", "placeholder": "Es. > 95%" }
+      ]
+    },
+    "basedigitale": {
+      "id": "basedigitale_custom",
+      "title": "Modello a canale & forecasting — Base Digitale",
+      "description": "Sezione dedicata: valore predittivo da dimostrare, anche in ottica rivendita verso i clienti finali.",
+      "questions": [
+        { "id": "bd_clienti_finali", "label": "Clienti finali raggiungibili (portafoglio)", "type": "number", "placeholder": "Es. 120" },
+        { "id": "bd_modello", "label": "Modello commerciale verso i clienti", "type": "radio", "options": ["Rivendita white-label", "Revenue share", "Referral", "Da definire"] },
+        { "id": "bd_whitelabel", "label": "È richiesto white-label / branding personalizzato?", "type": "radio", "options": ["Sì", "No", "Da valutare"] },
+        { "id": "bd_accuratezza", "label": "Accuratezza forecast richiesta per credibilità verso i clienti", "type": "text", "placeholder": "Es. > 96%" },
+        { "id": "bd_pilota", "label": "Numero di clienti pilota per la demo iniziale", "type": "number", "placeholder": "Es. 6" }
+      ]
+    },
+    "medicair": {
+      "id": "medicair_custom",
+      "title": "Unificazione dati & Fase 1 — MedicAir",
+      "description": "Sezione dedicata: dati frammentati tra ERP, CRM ed Excel — la Fase 1 è la pulizia/unificazione.",
+      "questions": [
+        { "id": "ma_fonti", "label": "Fonti dati da unificare", "type": "checkbox", "options": ["ERP Assistenza Domiciliare", "CRM Dispositivi Medici", "Excel Contabilità Logistica", "Gestionale Magazzino Farmaci", "Altro"] },
+        { "id": "ma_record", "label": "Volume record totale stimato", "type": "text", "placeholder": "Es. 50.000" },
+        { "id": "ma_qualita", "label": "Problemi di qualità prevalenti", "type": "checkbox", "options": ["Duplicati", "Record malformati", "Dati mancanti", "Anagrafiche non allineate", "Formati incoerenti"] },
+        { "id": "ma_priorita", "label": "Priorità di progetto", "type": "radio", "options": ["Solo Fase 1 (data cleansing) per ora", "Fase 1 + Fase 2 (forecasting) insieme", "Da definire dopo assessment dati"] },
+        { "id": "ma_owner_dati", "label": "Referente/owner dei dati per ciascuna fonte", "type": "textarea", "placeholder": "Es. ERP → IT interno, Excel → ufficio contabilità…" }
+      ]
+    },
+    "capitani-picone": {
+      "id": "capitani_picone_custom",
+      "title": "Studio professionale & co-pilot AI — Studio Capitani Picone",
+      "description": "Sezione dedicata: studio di consulenza senza figure tecniche interne, con processi replicabili sul portafoglio clienti.",
+      "questions": [
+        { "id": "cp_gestione", "label": "Chi userà la piattaforma nello studio?", "type": "select", "options": ["Soci e professionisti", "Team amministrativo", "Entrambi", "Da definire"] },
+        { "id": "cp_competenze", "label": "Competenze tecniche/AI interne", "type": "radio", "options": ["Nessuna (solo professionisti)", "Base", "Intermedie"] },
+        { "id": "cp_clienti_studio", "label": "Clienti dello studio su cui replicare i processi", "type": "number", "placeholder": "Es. 40" },
+        { "id": "cp_processi", "label": "Processi da abilitare per primi", "type": "checkbox", "options": ["Fast Closing", "Forecasting / Budgeting", "Anomaly Detection", "Controllo di gestione & reporting"] },
+        { "id": "cp_pilota", "label": "Clienti pilota per la prima fase", "type": "number", "placeholder": "Es. 3" },
+        { "id": "cp_formazione", "label": "Giornate di onboarding/formazione desiderate", "type": "number", "placeholder": "Es. 2" }
+      ]
+    }
+  }
+}

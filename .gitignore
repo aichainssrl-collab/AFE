@@ -1,0 +1,43 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tooling AI locale (non va su repo condiviso)
+.claude/
+
+# Database binari locali
+*.db
+*.db-shm
+*.db-wal
+ruvector.db
+
+# Node (root non ha package.json, ma per sicurezza se ne aggiungiamo uno)
+/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Build outputs generici
+/dist/
+/build/
+/out/
+/.next/
+/coverage/
+
+# Uploads locali (asset dell'utente)
+demo/uploads/
+
