@@ -10,9 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useAuth, type User } from "@/components/auth-context";
 import { CLIENTS } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 /**
  * UserSwitcher — selettore "demo" dell'utenza attiva.
@@ -64,15 +65,15 @@ export function UserSwitcher() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant="outline" size="sm" className="max-w-[180px]">
-          {currentUser.role === "admin" ? (
-            <Shield className="mr-2 h-4 w-4 text-primary" />
-          ) : (
-            <UserIcon className="mr-2 h-4 w-4" />
-          )}
-          <span className="truncate">{currentUser.name}</span>
-        </Button>
+      <DropdownMenuTrigger
+        className={cn(buttonVariants({ variant: "outline", size: "sm" }), "max-w-[180px]")}
+      >
+        {currentUser.role === "admin" ? (
+          <Shield className="mr-2 h-4 w-4 text-primary" />
+        ) : (
+          <UserIcon className="mr-2 h-4 w-4" />
+        )}
+        <span className="truncate">{currentUser.name}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
         <DropdownMenuLabel className="space-y-0.5">
