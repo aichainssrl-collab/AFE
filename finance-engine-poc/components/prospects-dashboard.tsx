@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Building2, CheckCircle2, Layers, FileText, ArrowRight } from "lucide-react";
+import { Building2, CheckCircle2, Layers, FileText, ArrowRight, Eye } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -12,15 +12,38 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CLIENTS } from "@/lib/data";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { CLIENTS, type ClientProfile } from "@/lib/data";
 import spec from "@/lib/spec-questions.json";
 
-type Section = { questions: { id: string }[] };
-const COMMON = (spec.sections as Section[]).reduce((n, s) => n + s.questions.length, 0);
+type Q = { id: string; label: string };
+type Section = { id: string; title: string; questions: Q[] };
+const COMMON_SECTIONS = spec.sections as Section[];
+const COMMON = COMMON_SECTIONS.reduce((n, s) => n + s.questions.length, 0);
 const PROSPECT_SECTIONS = spec.prospectSections as Record<string, Section>;
+
+/** Ordered sections (common + prospect-specific) used to render collected data with labels. */
+function sectionsFor(clientId: string): Section[] {
+  const extra = PROSPECT_SECTIONS[clientId];
+  return extra ? [...COMMON_SECTIONS, extra] : COMMON_SECTIONS;
+}
 
 function totalQuestions(clientId: string) {
   return COMMON + (PROSPECT_SECTIONS[clientId]?.questions.length ?? 0);
+}
+
+function fmtValue(v: unknown): string {
+  if (Array.isArray(v)) return v.join(", ");
+  return String(v ?? "");
+}
+function isFilled(v: unknown): boolean {
+  return Array.isArray(v) ? v.length > 0 : v != null && String(v).trim() !== "";
 }
 
 function answeredCount(saved: Record<string, unknown> | null) {
@@ -32,6 +55,7 @@ function answeredCount(saved: Record<string, unknown> | null) {
 
 export function ProspectsDashboard() {
   const [answers, setAnswers] = useState<Record<string, Record<string, unknown> | null>>({});
+  const [openClient, setOpenClient] = useState<ClientProfile | null>(null);
 
   useEffect(() => {
     const next: Record<string, Record<string, unknown> | null> = {};
@@ -140,13 +164,23 @@ export function ProspectsDashboard() {
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Link
-                        href={`/${c.id}/specifiche`}
-                        className="inline-flex items-center gap-1 whitespace-nowrap text-sm font-medium hover:underline"
-                        style={{ color: c.accent }}
-                      >
-                        Specifiche <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
+                      <div className="flex items-center justify-end gap-3 whitespace-nowrap text-sm">
+                        <button
+                          type="button"
+                          onClick={() => setOpenClient(c)}
+                          disabled={done === 0}
+                          className="inline-flex items-center gap-1 text-muted-foreground hover:underline disabled:opacity-40 disabled:no-underline"
+                        >
+                          <Eye className="h-3.5 w-3.5" /> Vedi dati
+                        </button>
+                        <Link
+                          href={`/${c.id}/specifiche`}
+                          className="inline-flex items-center gap-1 font-medium hover:underline"
+                          style={{ color: c.accent }}
+                        >
+                          Specifiche <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
                     </TableCell>
                   </TableRow>
                 );
@@ -155,6 +189,47 @@ export function ProspectsDashboard() {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Collected-data viewer */}
+      <Dialog open={!!openClient} onOpenChange={(o) => !o && setOpenClient(null)}>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
+          {openClient && (
+            <>
+              <DialogHeader>
+                <DialogTitle>Dati raccolti · {openClient.name}</DialogTitle>
+                <DialogDescription>
+                  Risposte salvate del questionario specifiche di sviluppo.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-5">
+                {sectionsFor(openClient.id).map((section) => {
+                  const saved = answers[openClient.id] ?? {};
+                  const filled = section.questions.filter((q) => isFilled(saved[q.id]));
+                  if (filled.length === 0) return null;
+                  return (
+                    <div key={section.id} className="space-y-2">
+                      <p
+                        className="text-xs font-semibold uppercase tracking-wide"
+                        style={{ color: openClient.accent }}
+                      >
+                        {section.title}
+                      </p>
+                      <dl className="space-y-2">
+                        {filled.map((q) => (
+                          <div key={q.id} className="grid grid-cols-1 gap-0.5 sm:grid-cols-[40%_1fr] sm:gap-3">
+                            <dt className="text-sm text-muted-foreground">{q.label}</dt>
+                            <dd className="text-sm font-medium">{fmtValue((saved as Record<string, unknown>)[q.id])}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
